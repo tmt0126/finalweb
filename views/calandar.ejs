@@ -1,0 +1,88 @@
+<!doctype html>
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Calendar</title>
+	<link rel="stylesheet" href="/codebase/dhtmlxscheduler.css">
+	<script src="/codebase/dhtmlxscheduler.js"></script>
+
+	<style>
+		@font-face {
+			font-family: 'S-CoreDream-3Light';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+
+		html,
+		body {
+			margin: 0px;
+			padding: 0px;
+			height: 100%;
+			overflow: hidden;
+		}
+	</style>
+	<script>
+		function init() {
+			scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+			scheduler.init("scheduler_here", new Date(2021, 5, 11), "month");
+			scheduler.templates.xml_date = function (value) { return new Date(value); };
+
+			// enables the dynamic loading
+
+			scheduler.setLoadMode("day");
+
+			// load data from backend
+			scheduler.load("/data", "json");
+			// connect backend to scheduler
+			var dp = new dataProcessor("/data");
+			// set data exchange mode
+			dp.init(scheduler);
+			dp.setTransactionMode("POST", false);
+		}
+	</script>
+</head>
+
+<body onload="init();" id="body_id">
+	<div class="collapse navbar-collapse" id="navbarResponsive" style="height: 10px;">
+		<ul class="nav">
+			<li class="nav-item">
+				<a class="nav-link" href="/auth/logout">로그아웃</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" onclick="darkmode(); " style="cursor: pointer;"> 랜덤색상 </a>
+			</li>
+			<script>
+				function darkmode() {
+					var color = ["#EAA18A", "#ffcbcb","#ffcc00","#444c57","#f59b25","white"];
+					var num = Math.floor(Math.random() * color.length);
+					var bodyTag = document.getElementById("body_id");
+					bodyTag.style.background = color[num];
+				}
+			</script>
+		</ul>
+	</div>
+	<div class="real_out" style=' display: flex; align-items: center; flex-direction: row; justify-content: center; width: 100%; height: 100%;'>
+		<div class="outer"
+			style=' background: white;border-radius: 20px 20px 20px 20px; display: flex; align-items: center; flex-direction: row; justify-content: center; width: 80%; height: 80%;'>
+			<div id="scheduler_here" class="dhx_cal_container"
+				style='width:95%; height:95%; '>
+				<div class="dhx_cal_navline">
+					<div class="dhx_cal_prev_button">&nbsp;</div>
+					<div class="dhx_cal_next_button">&nbsp;</div>
+					<div class="dhx_cal_today_button"></div>
+					<div class="dhx_cal_date"></div>
+					<div class="dhx_cal_tab" name="day_tab"></div>
+					<div class="dhx_cal_tab" name="week_tab"></div>
+					<div class="dhx_cal_tab" name="month_tab"></div>
+				</div>
+				<div class="dhx_cal_header">
+				</div>
+				<div class="dhx_cal_data">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/css/style1.css">
+
+    <style>
+        .center {
+            height: 350px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="center">
+        <h1>회 원 가 입</h1>
+        <form action= "/users/register" method="POST" >
+
+            <div class="txt_field">
+                <input type="text" id="username" name="username" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+
+            <div class="txt_field">
+                <input type="password" id="password" name="password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+
+            <input type="submit" value="Register" id="sendMassageButton">
+            <!-- <div>
+                <button type="submit">Register</button>
+            </div> -->
+
+            <!--<div class="signup_link">
+                아직 회원이 아니신가요? <a href="#">회원가입</a>
+            </div>-->
+        </form>
+    </div>
+</body>
+</html> 
